@@ -3,11 +3,6 @@
   const checklistVersion = 3;
   const A = (n) => `ach:${String(n).padStart(2, '0')}`;
 
-  const categories = [
-    ['all', '全部主动成就'], ['boss', '头目'], ['side', '支线'],
-    ['gear', '收集与强化'], ['combat', '招式'], ['completion', '终局'], ['risk', '错过风险']
-  ];
-
   const achievements = [
     { n:1, title:'寻心路', en:"The Heart's Journey", cat:'story', area:'悲泣溪谷', desc:'在主线大路上摆脱追兵。', areaId:'r1' },
     { n:2, title:'逆行不逆心', en:'An Unwavering Heart', cat:'story', area:'悲泣溪谷', desc:'穿过前哨营地。', areaId:'r1' },
@@ -49,33 +44,35 @@
     { n:38, title:'杏林有继', en:'The Healer’s Legacy', cat:'side', area:'悲泣溪谷／血色森林', desc:'完成“肉灵芝”“见习医者”“医者仁心”。打静夜前完成药草委托，打白赤练前完成救治与交付。', areaId:'r2', risk:true },
     { n:39, title:'妙手拾遗', en:'Lost and Found', cat:'side', area:'五个区域', desc:'完成全部“妙手空空”委托并交还宝物。建议沿途交付；是否属于硬性错过项，各指南说法不一。', areaId:'r8', caution:true },
     { n:40, title:'草木也知愁', en:'Even Trees Know Sorrow', cat:'side', area:'五个区域', desc:'完成“榕树之心”的五场菩提试炼。攻略普遍认为通关后仍可补。', areaId:'r7' },
-    { n:41, title:'神“器”十足', en:'A Tempered Ten', cat:'gear', area:'庞镇以后', desc:'为 10 把不同武器进行一次魂锻。', areaId:'r4' },
-    { n:42, title:'一力降十会', en:'Overwhelming Force', cat:'gear', area:'全程可做', desc:'将任意一把武器强化至 30 级。', areaId:'r9' },
-    { n:43, title:'珀力非凡', en:'Complete Mastery', cat:'gear', area:'全区域', desc:'收集 10 块煞气琥珀。', areaId:'r6' },
-    { n:44, title:'且听花声', en:'Listen to Every Flower', cat:'gear', area:'全区域', desc:'集齐 10 朵完整的记忆之花（不是 10 片花瓣）。', areaId:'r6' },
-    { n:45, title:'取石有道', en:'Leave No Stone Unturned', cat:'gear', area:'全区域', desc:'收集 10 块黑石。', areaId:'r6' },
-    { n:46, title:'博物杂记', en:'Collector’s Notes', cat:'gear', area:'全区域', desc:'收集 30 件饰品。', areaId:'r6' },
-    { n:47, title:'“影”多不压身', en:'Phantom Arsenal', cat:'gear', area:'庞镇以后', desc:'为 10 件影之武装进行一次魂锻。', areaId:'r4' },
-    { n:48, title:'一巧破百拙', en:'Skill Over Strength', cat:'gear', area:'全程可做', desc:'将任意一件影之武装强化至 30 级。', areaId:'r9' },
-    { n:49, title:'“影”之道', en:'Way of the Phantom', cat:'combat', area:'前期即可', desc:'执行一次连锁暗杀。', areaId:'r1' },
-    { n:50, title:'“刃”之道', en:'Way of the Blade', cat:'combat', area:'前期即可', desc:'执行一次连锁处决。', areaId:'r1' },
-    { n:51, title:'破伤风之刃', en:'The Rusted Blade', cat:'combat', area:'悲泣溪谷', desc:'用“残钢刃”使敌人流血。', areaId:'r1' },
-    { n:52, title:'醉生梦死', en:'A Drunken Dream', cat:'combat', area:'血色森林', desc:'用“痴者残剑”进入“大醉”状态。', areaId:'r2' },
-    { n:53, title:'兵不血刃', en:'Bloodless Victory', cat:'combat', area:'取得软蛇剑后', desc:'用“灵蛇软剑”的“后发先至”弹反敌人攻击。', areaId:'r3' },
-    { n:54, title:'灭烛见真火', en:'The Flame Within', cat:'combat', area:'断魂山／终盘', desc:'用“炼狱胭脂”释放“幻刃”。', areaId:'r9' },
-    { n:55, title:'渴饮刀头血', en:'The Blade’s Thirst', cat:'combat', area:'取得亡命斩马刀后', desc:'用“亡命斩马刀”释放“嗜血狂刃”。', areaId:'r2' },
-    { n:56, title:'御雪凝霜', en:'Snow and Frost', cat:'combat', area:'梅谷湖', desc:'用“白影”冻结敌人。', areaId:'r6' },
-    { n:57, title:'一刀两断', en:'Cleave in Two', cat:'combat', area:'取得偃月刀后', desc:'用偃月刀“青龙斩”直接斩杀敌人。', areaId:'r4' },
-    { n:58, title:'延时爆破', en:'Delayed Blast', cat:'combat', area:'陆家村', desc:'完成沐小葵五条红绳后解锁第三阶段，取得“妖锯”并触发“妖气侵蚀”。', areaId:'r3' },
-    { n:59, title:'环环相扣', en:'Perfectly Linked', cat:'combat', area:'取得玉双环后', desc:'用“玉双环”连续抛出飞环并命中锁定目标。', areaId:'r4' },
-    { n:60, title:'白山风雷动', en:'Baishan Tempest', cat:'combat', area:'正道大营', desc:'用“白山风雷剑”释放“雷霆风暴”。', areaId:'r5' },
-    { n:61, title:'天降金瓜', en:'Heavenfall Strike', cat:'combat', area:'取得碎颅杆后', desc:'用“碎颅杆”从空中砸中敌人。', areaId:'r5' },
+    { n:41, title:'神“器”十足', en:'A Tempered Ten', cat:'gear', area:'解锁魂锻后', desc:'为 10 把不同武器各完成一次魂锻。', areaId:'r4' },
+    { n:42, title:'一力降十会', en:'Overwhelming Force', cat:'gear', area:'任意区域', desc:'将任意一把武器强化至 30 级。', areaId:'r9' },
+    { n:43, title:'珀力非凡', en:'Complete Mastery', cat:'gear', area:'跨区域累计', desc:'收集 10 块煞气琥珀。', areaId:'r6' },
+    { n:44, title:'且听花声', en:'Listen to Every Flower', cat:'gear', area:'跨区域累计', desc:'集齐 10 朵完整的记忆之花（不是 10 片花瓣）。', areaId:'r6' },
+    { n:45, title:'取石有道', en:'Leave No Stone Unturned', cat:'gear', area:'跨区域累计', desc:'收集 10 块黑石。', areaId:'r6' },
+    { n:46, title:'博物杂记', en:'Collector’s Notes', cat:'gear', area:'跨区域累计', desc:'收集 30 件饰品。', areaId:'r6' },
+    { n:47, title:'“影”多不压身', en:'Phantom Arsenal', cat:'gear', area:'解锁魂锻后', desc:'为 10 件不同影之武装各完成一次魂锻。', areaId:'r4' },
+    { n:48, title:'一巧破百拙', en:'Skill Over Strength', cat:'gear', area:'任意区域', desc:'将任意一件影之武装强化至 30 级。', areaId:'r9' },
+    { n:49, title:'“影”之道', en:'Way of the Phantom', cat:'combat', area:'任意区域', desc:'在同一次连续动作中完成连锁暗杀；不限定区域。' },
+    { n:50, title:'“刃”之道', en:'Way of the Blade', cat:'combat', area:'任意区域', desc:'在同一次连续动作中完成连锁处决；不限定区域。' },
+    { n:51, title:'破伤风之刃', en:'The Rusted Blade', cat:'combat', area:'任意区域', desc:'用“残钢刃”使敌人大出血。先在悲泣溪谷击败痴狂暴徒·残钢取得武器；取得后可在其他区域完成。', pickupAreaId:'r1', pickupAreaLabel:'取残钢刃：悲泣溪谷 ↗' },
+    { n:52, title:'醉生梦死', en:'A Drunken Dream', cat:'combat', area:'任意区域', desc:'装备“痴者残剑”进入“大醉”；该剑由血色森林“远眺庞镇之桥”旁的花千笑掉落。', pickupAreaId:'r2', pickupAreaLabel:'取痴者残剑：血色森林 ↗' },
+    { n:53, title:'兵不血刃', en:'Bloodless Victory', cat:'combat', area:'任意区域', desc:'装备“灵蛇软剑”，用“后发先至”弹反敌人攻击；不限定区域。', areaId:'r3' },
+    { n:54, title:'灭烛见真火', en:'The Flame Within', cat:'combat', area:'任意区域', desc:'取得“炼狱胭脂”后，用它释放“幻刃”；不限定区域。', areaId:'r9' },
+    { n:55, title:'渴饮刀头血', en:'The Blade’s Thirst', cat:'combat', area:'任意区域', desc:'取得“亡命斩马刀”后，释放绝技“嗜血狂刃”；不限定区域。', areaId:'r2' },
+    { n:56, title:'御雪凝霜', en:'Snow and Frost', cat:'combat', area:'任意区域', desc:'先在梅谷湖击败风雪刀客取得“白影”；之后可在任意区域冻结敌人。', pickupAreaId:'r6', pickupAreaLabel:'取白影：梅谷湖 ↗' },
+    { n:57, title:'一刀两断', en:'Cleave in Two', cat:'combat', area:'任意区域', desc:'取得偃月刀后，用“青龙斩”直接斩杀敌人；不限定区域。', areaId:'r4' },
+    { n:58, title:'延时爆破', en:'Delayed Blast', cat:'combat', area:'任意区域', desc:'先在陆家村完成沐小葵五条红绳解锁妖锯，再于任意区域触发并引爆“妖气侵蚀”。', pickupAreaId:'r3', pickupAreaLabel:'解锁妖锯：陆家村 ↗' },
+    { n:59, title:'环环相扣', en:'Perfectly Linked', cat:'combat', area:'任意区域', desc:'取得“玉双环”后，连续抛出飞环并命中锁定目标；不限定区域。', areaId:'r4' },
+    { n:60, title:'白山风雷动', en:'Baishan Tempest', cat:'combat', area:'任意区域', desc:'取得“白山风雷剑”后释放“雷霆风暴”；不限定区域。', areaId:'r5' },
+    { n:61, title:'天降金瓜', en:'Heavenfall Strike', cat:'combat', area:'任意区域', desc:'取得“碎颅杆”后，从空中砸中敌人；不限定区域。', areaId:'r5' },
     { n:62, title:'翻江倒海', en:'Turning the Tide', cat:'boss', area:'庞镇＋梅谷湖', desc:'先后击败两次水行帮主：游龙（庞镇和梅谷湖各一战）。', areaId:'r6' },
-    { n:63, title:'拳力以赴', en:'Fists of Fury', cat:'combat', area:'取得铁拳套后', desc:'用“铁拳套”打出“宗师拳”。', areaId:'r5' },
-    { n:64, title:'电光石火', en:'Lightning Fast', cat:'combat', area:'取得雷霆枪后', desc:'用“雷霆枪”麻痹敌人。', areaId:'r6' },
-    { n:65, title:'无中生友', en:'A Friend from Thin Air', cat:'combat', area:'取得召唤类影之武装后', desc:'使用任意召唤类影之武装召出助战单位。', areaId:'r4' },
-    { n:66, title:'逆天改命', en:'Defy Destiny', cat:'completion', area:'最终清扫', desc:'解锁其余 65 项 Steam 成就。', areaId:'r9' }
+    { n:63, title:'拳力以赴', en:'Fists of Fury', cat:'combat', area:'任意区域', desc:'取得“铁拳套”后打出“宗师拳”；不限定区域。', areaId:'r5' },
+    { n:64, title:'电光石火', en:'Lightning Fast', cat:'combat', area:'任意区域', desc:'取得“雷霆枪”后麻痹敌人；不限定区域。', areaId:'r6' },
+    { n:65, title:'无中生友', en:'A Friend from Thin Air', cat:'combat', area:'任意区域', desc:'取得任意召唤类影之武装后召出助战单位；不限定区域。', areaId:'r4' },
+    { n:66, title:'逆天改命', en:'Defy Destiny', cat:'completion', area:'完成其余成就后', desc:'解锁其余 65 项 Steam 成就；不绑定特定区域。', areaId:'r9' }
   ];
+
+  const isRegionBound = achievement => ['story','boss','side'].includes(achievement.cat);
 
   const mysteries = ['谷底深处','因尼斯幻象','煞气船','虚荣的诱惑','幻琵琶','昆仑长柱','哭声从何而来','先驱者幻象','朱宅','湖心秘密','血脉觉醒'];
   const globalThresholds = [
@@ -93,6 +90,7 @@
   const regions = [
     { id:'r1', no:'01', name:'悲泣溪谷', subtitle:'主线起点 · 断裂的心印与第一根龙柱', achievements:[1,2,3,14,15,16,23,37,49,50,51], steps:[
       {id:'mystery:0', label:'完成紫色任务《谷底深处》', note:'开启溪谷下层区域；按任务日志完成。'},
+      {id:'route:r1:rusted-blade', label:'击败痴狂暴徒·残钢，取得残钢刃', note:'用于“破伤风之刃”；拿到后可在任意区域对敌人触发“大出血”。'},
       {id:'pillar:valley', label:'完成悲泣溪谷龙柱试炼（1 / 5）', note:'推进《血脉觉醒》；五根龙柱是成就“影承血，刃同源”的必做项。'},
       {id:'gate:accessory:boulderguard', label:'先与前哨营地 NPC 交谈，再检查墓碑', note:'取得错过风险饰品“坚岩护腕”：从斧宗师拘留所铃铛往前，在步道上调查墓碑。', gate:true},
       {id:'gate:accessory:medicine-case', label:'离开溪谷前交齐三种草药', note:'把止血藤、凝脂叶、污秽金草交给玉儿，完成《见习医者》并取得“香薰药盒”。', gate:true},
@@ -199,7 +197,6 @@
   ];
 
   let state = loadState();
-  let activeCategory = 'all';
   let showIncompleteOnly = false;
   let toastTimer;
 
@@ -339,14 +336,18 @@
   }
 
   function renderRegion(region) {
-    const done = region.achievements.filter(n => isChecked(A(n))).length;
-    const mainAchievements = region.achievements.filter(n => achievements.find(a => a.n === n)?.cat === 'story');
-    const activeAchievements = region.achievements.filter(n => achievements.find(a => a.n === n)?.cat !== 'story');
+    const boundAchievements = region.achievements.filter(n => {
+      const achievement = achievements.find(a => a.n === n);
+      return achievement && isRegionBound(achievement);
+    });
+    const done = boundAchievements.filter(n => isChecked(A(n))).length;
+    const mainAchievements = boundAchievements.filter(n => achievements.find(a => a.n === n)?.cat === 'story');
+    const activeAchievements = boundAchievements.filter(n => achievements.find(a => a.n === n)?.cat !== 'story');
     const opened = region.id === 'r1' && !document.querySelector('.region-card[open]');
     const seen = new Set();
     const steps = region.steps.filter(step => { if (seen.has(step.id)) return false; seen.add(step.id); return true; });
     return `<details class="region-card ${steps.some(s=>s.gate) ? 'is-risk' : ''}" id="${region.id}" ${opened ? 'open' : ''}>
-      <summary class="region-summary"><span class="region-ordinal">${region.no}</span><span><span class="region-title">${esc(region.name)}</span><span class="region-subtitle">${esc(region.subtitle)}</span></span><span class="region-progress-mini">成就 ${done}/${region.achievements.length}</span><span class="region-chevron">⌄</span></summary>
+      <summary class="region-summary"><span class="region-ordinal">${region.no}</span><span><span class="region-title">${esc(region.name)}</span><span class="region-subtitle">${esc(region.subtitle)}</span></span><span class="region-progress-mini">区域成就 ${done}/${boundAchievements.length}</span><span class="region-chevron">⌄</span></summary>
       <div class="region-body"><div class="region-body-grid"><div class="region-column"><h4>本区必做路线</h4><div class="route-steps">${renderRouteSteps({...region,steps})}</div></div><div class="region-column"><h4>本区解锁成就</h4>${mainAchievements.length ? `<div class="subsection-label">流程推进 · ${mainAchievements.length} 项</div><div class="check-list">${mainAchievements.map(n=>renderAchievementsInRegion({...region,achievements:[n]})).join('')}</div>` : ''}${activeAchievements.length ? `<div class="subsection-label">需要主动完成 · ${activeAchievements.length} 项</div><div class="check-list">${activeAchievements.map(n=>renderAchievementsInRegion({...region,achievements:[n]})).join('')}</div>` : ''}</div></div></div>
     </details>`;
   }
@@ -363,26 +364,34 @@
 
   function renderFilters() {
     const wrap = document.getElementById('achievement-filters');
-    wrap.innerHTML = categories.map(([key,label]) => `<button type="button" class="filter-chip ${activeCategory === key ? 'is-active' : ''}" data-filter="${key}">${label}</button>`).join('') + `<button type="button" class="filter-chip ${showIncompleteOnly ? 'is-active' : ''}" data-incomplete="true">只看未完成</button>`;
+    wrap.innerHTML = `<button type="button" class="filter-chip ${showIncompleteOnly ? 'is-active' : ''}" data-incomplete="true" aria-pressed="${showIncompleteOnly}">只看未完成</button>`;
   }
 
   function achievementRow(a) {
     const checked = isChecked(A(a.n));
     const risk = a.risk || a.caution;
-    return `<article class="achievement-row ${risk ? 'is-missable' : ''} ${checked ? 'is-checked' : ''}"><input data-check="${A(a.n)}" type="checkbox" ${checked ? 'checked' : ''} aria-label="标记成就完成：${esc(a.title)}"><span class="achievement-icon">${String(a.n).padStart(2,'0')}</span><span><span class="achievement-name">${esc(a.title)}${risk ? ` <em class="badge-inline">${a.risk ? '错过风险' : '安全路线'}</em>` : ''}</span><span class="achievement-desc">${esc(a.desc)}</span></span><span class="achievement-region">${esc(a.area)}</span></article>`;
+    const location = a.pickupAreaId
+      ? `达成：${esc(a.area)} · <a class="achievement-location-link" href="#${a.pickupAreaId}" data-region-link="${a.pickupAreaId}">${esc(a.pickupAreaLabel || '查看装备获取区域 ↗')}</a>`
+      : esc(a.area);
+    return `<article class="achievement-row ${risk ? 'is-missable' : ''} ${checked ? 'is-checked' : ''}"><input data-check="${A(a.n)}" type="checkbox" ${checked ? 'checked' : ''} aria-label="标记成就完成：${esc(a.title)}"><span class="achievement-icon">${String(a.n).padStart(2,'0')}</span><span><span class="achievement-name">${esc(a.title)}${risk ? ` <em class="badge-inline">${a.risk ? '错过风险' : '安全路线'}</em>` : ''}</span><span class="achievement-desc">${esc(a.desc)}</span></span><span class="achievement-region">${location}</span></article>`;
   }
 
   function renderAchievements() {
     const query = document.getElementById('achievement-search').value.trim().toLocaleLowerCase();
-    const flow = achievements.filter(a => a.cat === 'story' && (!query || `${a.title} ${a.en} ${a.desc} ${a.area}`.toLocaleLowerCase().includes(query)) && (!showIncompleteOnly || !isChecked(A(a.n))));
-    const active = achievements.filter(a => a.cat !== 'story').filter(a => {
+    const matches = a => {
       const textMatch = !query || `${a.title} ${a.en} ${a.desc} ${a.area}`.toLocaleLowerCase().includes(query);
-      const categoryMatch = activeCategory === 'all' || (activeCategory === 'risk' ? a.risk : a.cat === activeCategory);
-      return textMatch && categoryMatch && (!showIncompleteOnly || !isChecked(A(a.n)));
-    });
-    document.getElementById('flow-achievement-list').innerHTML = flow.length ? flow.map(achievementRow).join('') : '<div class="no-results">没有找到匹配的流程成就。</div>';
-    document.getElementById('active-achievement-list').innerHTML = active.length ? active.map(achievementRow).join('') : '<div class="no-results">没有找到匹配的主动成就。</div>';
-    document.getElementById('visible-achievements').textContent = `流程推进 ${flow.length} / 13 项 · 需要主动完成 ${active.length} / 53 项`;
+      return textMatch && (!showIncompleteOnly || !isChecked(A(a.n)));
+    };
+    const boundFlow = achievements.filter(a => isRegionBound(a) && a.cat === 'story' && matches(a));
+    const boundActive = achievements.filter(a => isRegionBound(a) && a.cat !== 'story' && matches(a));
+    const unbound = achievements.filter(a => !isRegionBound(a) && matches(a));
+    const renderList = (id, list, emptyText) => {
+      document.getElementById(id).innerHTML = list.length ? list.map(achievementRow).join('') : `<div class="no-results">${emptyText}</div>`;
+    };
+    renderList('bound-flow-achievement-list',boundFlow,'没有找到匹配的流程成就。');
+    renderList('bound-active-achievement-list',boundActive,'没有找到匹配的区域绑定主动成就。');
+    renderList('unbound-achievement-list',unbound,'没有找到匹配的不绑定区域成就。');
+    document.getElementById('visible-achievements').textContent = `区域绑定 ${boundFlow.length + boundActive.length} / 41 项 · 不绑定区域 ${unbound.length} / 25 项`;
   }
 
   function updateProgress() {
@@ -416,9 +425,13 @@
     regions.forEach(region => {
       const card = document.getElementById(region.id);
       if (!card) return;
+      const boundAchievements = region.achievements.filter(n => {
+        const achievement = achievements.find(a => a.n === n);
+        return achievement && isRegionBound(achievement);
+      });
       const progress = card.querySelector('.region-progress-mini');
-      const regionDone = region.achievements.filter(n => isChecked(A(n))).length;
-      if (progress) progress.textContent = `成就 ${regionDone}/${region.achievements.length}`;
+      const regionDone = boundAchievements.filter(n => isChecked(A(n))).length;
+      if (progress) progress.textContent = `区域成就 ${regionDone}/${boundAchievements.length}`;
     });
   }
 
@@ -508,8 +521,7 @@
   document.getElementById('region-search').addEventListener('input',event => renderRegions(event.target.value));
   document.getElementById('achievement-search').addEventListener('input',renderAchievements);
   document.getElementById('achievement-filters').addEventListener('click',event => {
-    const filter = event.target.closest('[data-filter]'), incomplete = event.target.closest('[data-incomplete]');
-    if (filter) activeCategory = filter.dataset.filter;
+    const incomplete = event.target.closest('[data-incomplete]');
     if (incomplete) showIncompleteOnly = !showIncompleteOnly;
     renderFilters(); renderAchievements();
   });

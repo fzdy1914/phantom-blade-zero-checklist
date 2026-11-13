@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#11100f" />
     <meta name="description" content="影之刃零一周目全成就路线检查表：按区域列出必做步骤、错过截止点与成就数量目标。" />
     <title>影之刃零 · 一周目全成就路线</title>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
     <script src="quantity-data.js?v=3" defer></script>
-    <script src="app.js?v=3" defer></script>
+    <script src="app.js?v=4" defer></script>
   </head>
   <body>
     <div class="ambient ambient-one" aria-hidden="true"></div>
@@ -62,8 +62,7 @@
       <nav class="section-nav" aria-label="页面目录">
         <a class="nav-link is-active" href="#route"><span class="nav-number">01</span>区域路线</a>
         <a class="nav-link" href="#achievements"><span class="nav-number">02</span>成就清单</a>
-        <a class="nav-link" href="#sources"><span class="nav-number">03</span>资料与说明</a>
-        <a class="nav-link" href="#quantity-checklists"><span class="nav-number">04</span>数量成就清单</a>
+        <a class="nav-link" href="#quantity-checklists"><span class="nav-number">03</span>收集与强化</a>
       </nav>
 
       <section id="route" class="content-section route-section">
@@ -81,41 +80,23 @@
 
       <section id="achievements" class="content-section achievement-section">
         <div class="section-heading">
-          <div><span class="section-kicker">成就清单 · 按游戏内中文名</span><h2>全成就核对表</h2><p>先查看流程推进成就，再核对需要主动击败、收集、强化或使用招式的成就。</p></div>
+          <div><span class="section-kicker">成就清单 · 按是否绑定区域</span><h2>全成就核对表</h2><p>先按区域归属查看；区域绑定的成就再分流程推进与主动完成。可搜索，也可隐藏已完成项。</p></div>
           <div class="achievement-total"><strong>66</strong><span>项成就</span></div>
         </div>
         <div class="achievement-tools">
           <label class="search-box achievement-search"><span aria-hidden="true">⌕</span><input id="achievement-search" type="search" placeholder="搜索成就或解锁条件" /></label>
           <div class="filter-chips" id="achievement-filters" role="group" aria-label="成就筛选"></div>
         </div>
-        <div class="achievement-summary"><span id="visible-achievements">流程推进 13 / 13 项 · 需要主动完成 53 / 53 项</span><span><i class="legend-dot dot-red"></i> 红色标签表示流程截止点</span></div>
+        <div class="achievement-summary"><span id="visible-achievements">区域绑定 41 项 · 不绑定区域 25 项</span><span><i class="legend-dot dot-red"></i> 红色标签表示流程截止点</span></div>
         <div class="achievement-group">
-          <div class="achievement-group-heading"><div><span class="section-kicker">随主线推进解锁</span><h3>流程推进成就</h3></div><span>13 项</span></div>
-          <div id="flow-achievement-list" class="achievement-list"></div>
+          <div class="achievement-group-heading"><div><span class="section-kicker">限定在剧情、头目或支线所在区域</span><h3>区域绑定成就</h3></div><span>41 项</span></div>
+          <div class="achievement-subgroup"><div class="achievement-subgroup-heading"><b>流程推进</b><span>13 项</span></div><div id="bound-flow-achievement-list" class="achievement-list"></div></div>
+          <div class="achievement-subgroup"><div class="achievement-subgroup-heading"><b>非流程必得 · 头目与支线</b><span>28 项</span></div><div id="bound-active-achievement-list" class="achievement-list"></div></div>
         </div>
         <div class="achievement-group active-achievement-group">
-          <div class="achievement-group-heading"><div><span class="section-kicker">需要主动完成</span><h3>非流程必得成就</h3></div><span>53 项</span></div>
-          <div id="active-achievement-list" class="achievement-list"></div>
+          <div class="achievement-group-heading"><div><span class="section-kicker">任意区域均可完成；指定装备另标获取地点</span><h3>不绑定区域的成就</h3></div><span>25 项</span></div>
+          <div id="unbound-achievement-list" class="achievement-list"></div>
         </div>
-      </section>
-
-      <section id="sources" class="content-section sources-section">
-        <div class="section-heading">
-          <div><span class="section-kicker">参考资料与整理说明</span><h2>资料与口径</h2><p>路线按发售版公开攻略交叉整理，不是游戏内官方路线。区域日志、当前版本和你实际看到的任务状态优先。</p></div>
-        </div>
-        <div class="source-grid">
-          <a class="source-card" href="https://www.powerpyx.com/phantom-blade-zero-trophy-guide-roadmap/" target="_blank" rel="noreferrer"><span class="source-type">成就路线</span><b>PowerPyx · 成就与奖杯路线</b><span>成就路线、头目与任务奖励的主参考。</span><i>↗</i></a>
-          <a class="source-card" href="https://www.powerpyx.com/phantom-blade-zero-collectibles-guide-100-completion/" target="_blank" rel="noreferrer"><span class="source-type">按需查位置</span><b>PowerPyx · 区域物品位置</b><span>只在本表的必需物品需要找位置时使用；全成就不要求全收集。</span><i>↗</i></a>
-          <a class="source-card" href="https://www.powerpyx.com/phantom-blade-zero-true-ending-guide/" target="_blank" rel="noreferrer"><span class="source-type">真结局路线</span><b>PowerPyx · 真结局条件</b><span>紫色谜团、龙柱与最终铃铛的检查节点。</span><i>↗</i></a>
-          <a class="source-card" href="https://allthings.how/phantom-blade-zero-secrets-at-the-heart-of-the-lake/" target="_blank" rel="noreferrer"><span class="source-type">湖心秘密步骤</span><b>AllThingsHow · 面具与傀儡眼</b><span>萤火记忆之花、四面具、两颗傀儡眼和任务收尾顺序。</span><i>↗</i></a>
-          <a class="source-card" href="https://allthings.how/phantom-blade-zero-quick-hand-zhang-treasures/" target="_blank" rel="noreferrer"><span class="source-type">16 件宝物</span><b>AllThingsHow · 快手张宝物位置</b><span>按五个区域列出收集物和交付方式。</span><i>↗</i></a>
-          <a class="source-card" href="https://allthings.how/phantom-blade-zero-purple-quests/" target="_blank" rel="noreferrer"><span class="source-type">紫色任务核对</span><b>AllThingsHow · 十一项紫色谜团</b><span>前十项需在进入戏梦山庄前完成；第十一项是《血脉觉醒》。</span><i>↗</i></a>
-          <a class="source-card" href="https://phantomblade.guide/guides/missable-quests/" target="_blank" rel="noreferrer"><span class="source-type">错过项交叉核对</span><b>Phantom Blade Guide · 错过任务</b><span>按剧情顺序列出错过项，同时标明攻略之间的争议。</span><i>↗</i></a>
-          <a class="source-card" href="https://pbzdex.wiki/zh/trophies/list/" target="_blank" rel="noreferrer"><span class="source-type">中文成就名</span><b>PBZ Trophy Wiki · 全部成就</b><span>66 项 Steam 成就的中文名称、解锁条件与分类。</span><i>↗</i></a>
-          <a class="source-card" href="https://phantomblade.guide/guides/accessories/" target="_blank" rel="noreferrer"><span class="source-type">饰品名称与位置</span><b>Phantom Blade Guide · 饰品位置</b><span>66 件饰品按区域整理；本页将位置摘要翻译为中文，并标出错过风险。</span><i>↗</i></a>
-          <a class="source-card" href="https://gamesdb.gg/phantom-blade-zero/zh-hans/items" target="_blank" rel="noreferrer"><span class="source-type">简体中文物品名</span><b>GamesDB · 游戏内中文物品库</b><span>核对饰品、武器与影之武装的简体中文名称及所属区域。</span><i>↗</i></a>
-        </div>
-        <div class="source-caveat"><b>区域口径：</b>游戏没有传统的明文章节，本页按主线推进的 9 个区域整理。<b>成就平台：</b>这里按 Steam 66 项成就整理；PS5 列表为 36 个奖杯，覆盖范围不同。<b>收集品口径：</b>只列成就明确要求的数量和物品，不要求任何区域 100% 清图。指南对少数截止时机有分歧时，本表按较早的安全节点标注；请以游戏手账中的任务目标为准。</div>
       </section>
 
       <section id="quantity-checklists" class="content-section quantity-checklists-section">

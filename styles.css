@@ -82,6 +82,9 @@ body{font-size:16px;line-height:1.7;color:#f4f0e9}
 .achievement-group-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid #39322b}
 .achievement-group-heading h3{margin:3px 0 0;font:500 24px var(--serif);color:#f2ece2}
 .achievement-group-heading>span{font-size:13px;color:#d8bd93}
+.achievement-subgroup+.achievement-subgroup{margin-top:20px;padding-top:16px;border-top:1px solid #39322b}
+.achievement-subgroup-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 10px;color:#ddd4c8;font-size:15px}
+.achievement-subgroup-heading span{color:#c0a77e;font-size:12px}
 .achievement-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .achievement-row{grid-template-columns:20px 34px minmax(0,1fr);gap:10px;min-height:82px;padding:11px;border-radius:5px;border-color:#39332d;background:#1d1b19}
 .achievement-row input{width:18px;height:18px}
@@ -89,6 +92,8 @@ body{font-size:16px;line-height:1.7;color:#f4f0e9}
 .achievement-name{font-size:15px;color:#f1ece3}
 .achievement-desc{font-size:13px;line-height:1.55;color:#b9b0a4;margin-top:4px}
 .achievement-region{grid-column:3;font:12px var(--sans);color:#d2b88f;white-space:normal;margin-top:2px}
+.achievement-location-link{color:#e2b77e;text-decoration:underline;text-decoration-color:#71583d;text-underline-offset:3px}
+.achievement-location-link:hover{color:#fff0cf;text-decoration-color:#d7a869}
 .achievement-row.is-missable{border-left:4px solid #ca5a4a}
 .source-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .source-card{min-height:145px;padding:16px;border-radius:6px}
