@@ -1,6 +1,6 @@
 (() => {
   const STORAGE_KEY = 'pbz-first-run-checklist-v1';
-  const checklistVersion = 2;
+  const checklistVersion = 3;
   const A = (n) => `ach:${String(n).padStart(2, '0')}`;
 
   const categories = [
@@ -80,21 +80,29 @@
   const mysteries = ['谷底深处','因尼斯幻象','煞气船','虚荣的诱惑','幻琵琶','昆仑长柱','哭声从何而来','先驱者幻象','朱宅','湖心秘密','血脉觉醒'];
   const globalThresholds = [
     ['amber10','杀气琥珀',10,'颗'], ['blackstone10','黑石',10,'块'],
-    ['flowers10','完整记忆之花',10,'朵'], ['accessories30','饰品',30,'件'],
-    ['weapon-temper10','魂锻武器',10,'把'], ['edge-temper10','魂锻影之武装',10,'件'],
+    ['flowers10','完整记忆之花',10,'朵'],
     ['weapon-level30','30 级武器',1,'把'], ['edge-level30','30 级影之武装',1,'件']
+  ];
+  const quantityData = window.pbzQuantityData;
+  const quantityGroups = [
+    { key:'accessory', title:'饰品', target:30, unit:'件', items:quantityData.accessories, description:'共 66 件可选；任意收集 30 件即可解锁“博物杂记”。每件都列出中文名、所在区域和具体获取位置。' },
+    { key:'weapon', title:'魂锻武器', target:10, unit:'把', items:quantityData.weapons, description:'从不同武器中任选 10 把，各完成一次魂锻。只勾选已魂锻的武器；同一把重复魂锻不重复计数。' },
+    { key:'edge', title:'魂锻影之武装', target:10, unit:'件', items:quantityData.phantomEdges, description:'从不同影之武装中任选 10 件，各完成一次魂锻。只勾选已魂锻的影之武装；重复魂锻不重复计数。' }
   ];
 
   const regions = [
     { id:'r1', no:'01', name:'悲泣溪谷', subtitle:'主线起点 · 断裂的心印与第一根龙柱', achievements:[1,2,3,14,15,16,23,37,49,50,51], steps:[
       {id:'mystery:0', label:'完成紫色任务《谷底深处》', note:'开启溪谷下层区域；按任务日志完成。'},
       {id:'pillar:valley', label:'完成悲泣溪谷龙柱试炼（1 / 5）', note:'推进《血脉觉醒》；五根龙柱是成就“影承血，刃同源”的必做项。'},
+      {id:'gate:accessory:boulderguard', label:'先与前哨营地 NPC 交谈，再检查墓碑', note:'取得错过风险饰品“坚岩护腕”：从斧宗师拘留所铃铛往前，在步道上调查墓碑。', gate:true},
+      {id:'gate:accessory:medicine-case', label:'离开溪谷前交齐三种草药', note:'把止血藤、凝脂叶、污秽金草交给玉儿，完成《见习医者》并取得“香薰药盒”。', gate:true},
       {id:'gate:gate-mindseal', label:'交还《断裂的心印》第一块原石', note:'在杀气塔顶与影哨接取，拿到原石后交还。最迟离开悲泣溪谷前；精确触发点未被指南确认。', gate:true}
     ]},
     { id:'r2', no:'02', name:'血色森林', subtitle:'镜林 · 医者与白山派支线截止点', achievements:[4,17,18,38,52,55], steps:[
       {id:'gate:gate-doctor', label:'静夜·亡命战前完成《见习医者》', note:'交付止血藤、凝脂叶、污秽金草给玉儿，并确认药匣任务完成。', gate:true},
       {id:'gate:gate-bai', label:'白赤练战前完成医者与白山派前置', note:'救治四名伤者并回报；击败阿花后交付肉灵芝；与桥上的兰兰接取《白山派秘闻》。按任务日志确认已完成当前阶段。', gate:true},
       {id:'gate:gate-quickhand', label:'救出快手张并接取《妙手空空》', note:'在囚笼处放下吊笼救人，再到盗贼营地与他交谈；“妙手拾遗”需要交齐五个区域的宝物。'},
+      {id:'gate:accessory:silent-wrap', label:'答对温柔盗贼的三道问题', note:'取得错过风险饰品“屏息绑带”；选择错误可能失去奖励。', gate:true},
       {id:'mystery:1', label:'完成紫色任务《因尼斯幻象》', note:'从血色森林第一座吊钟附近开始，后续依任务日志推进。'},
       {id:'pillar:crimson', label:'完成血色森林龙柱试炼（2 / 5）', note:'推进《血脉觉醒》。'},
       {id:'banyan:crimson', label:'完成血色森林菩提试炼（1 / 5）', note:'“草木也知愁”需要完成五处菩提试炼。'},
@@ -105,6 +113,8 @@
     ]},
     { id:'r3', no:'03', name:'陆家村', subtitle:'进入庞镇前 · 两条可错过支线与湖心秘密起点', achievements:[5,19,53,58], steps:[
       {id:'gate:gate-lu', label:'进入庞镇前接取并推进两条支线', note:'在老根处接《归家之旅》，在兰少爷藏身处接《兰家大少》；完成两条的陆家村首段。成就在庞镇收尾。', gate:true},
+      {id:'gate:accessory:arrowward', label:'把《盗贼秘籍》交给门边受伤的盗贼', note:'取得错过风险饰品“避箭护符”；秘籍可在血色森林取得。', gate:true},
+      {id:'gate:accessory:agarwood', label:'对庄严僧人选择“不相信”，再交念珠', note:'取得错过风险饰品“沉香念珠”；选择相信会令僧人石化。', gate:true},
       {id:'gate:gate-ribbons', label:'沐小葵战前集齐五条红绳', note:'三偶井、蓝火萤寺、长廊桥、夫人地、井下各一条。五条齐全后再挑战，解锁妖锯与“延时爆破”。', gate:true},
       {id:'route-count:r3:firefly', label:'萤火记忆之花残片', count:{key:'count:r3:firefly', target:6, unit:'片'}, note:'收集 6 片开启《湖心秘密》并进入后续流程。'},
       {id:'route:r3:pipa-start', label:'开启紫色任务《幻琵琶》', note:'本区取得残破琵琶与部件线索，后续在梅谷湖补齐琴弦并交给密斯特修复。'},
@@ -127,6 +137,8 @@
     ]},
     { id:'r4', no:'04', name:'庞镇', subtitle:'接续陆家村支线 · 真结局谜团的安全截止点', achievements:[6,20,31,35,36,41,47,57,59,62,65], steps:[
       {id:'route:r4:journey-home', label:'完成《归家之旅》与《兰家大少》', note:'接续陆家村已开启的任务，完成两项支线成就。'},
+      {id:'gate:accessory:blessed-jade', label:'长鸿战前救下建筑内的老人', note:'取得错过风险饰品“开光玉佩”；需要先在悲泣溪谷取得肉灵芝。', gate:true},
+      {id:'gate:accessory:snow-blood', label:'推进白雪儿异闻并检查树下石堆', note:'取得错过风险饰品“雪与血”；互动点在树根石堆处。', gate:true},
       {id:'route:r4:fleshlily', label:'完成《肉灵芝》最后交付', note:'击败张洪后进入前方的玉儿家，将普通肉灵芝交给玉儿的父亲；与血色森林的医者任务合计解锁“杏林有继”。'},
       {id:'mystery:2', label:'完成紫色任务《煞气船》', note:'在庞镇码头向密斯特询问船主，再登上机械船。'},
       {id:'route:r4:kunlun-key', label:'推进《昆仑长柱》并取得正道大营外门钥匙', note:'按紫色任务标记找到庞镇后巷的钥匙，随后到正道大营继续。'},
@@ -142,6 +154,7 @@
     ]},
     { id:'r5', no:'05', name:'正道大营', subtitle:'白山派收尾 · 菩提试炼', achievements:[8,21,29,34,40,60,61,63], steps:[
       {id:'gate:gate-bi', label:'玉笔战前检查白山派后续目标', note:'吴冷霜战后检查花丛中的毕桃桃遗体；确认日志出现“击败毕桃桃的人偶形态”后再打玉笔。', gate:true},
+      {id:'gate:accessory:twin-fish', label:'屋顶遇到红时沿铁链离开，再于大师兄战击败她', note:'取得错过风险饰品“同心双鱼佩”；不要在屋顶把红打到退场。', gate:true},
       {id:'banyan:mandate', label:'完成正道大营菩提试炼（3 / 5）', note:'“草木也知愁”所需。'},
       {id:'mystery:5', label:'完成紫色任务《昆仑长柱》', note:'按任务日志推进并完成枷笼山相关步骤。'}
     ]},
@@ -164,6 +177,7 @@
     ]},
     { id:'r7', no:'07', name:'枷笼山', subtitle:'完成神祠步骤 · 戏梦山庄前最后一处截止点', achievements:[22,30,40], steps:[
       {id:'mystery:6', label:'完成紫色任务《哭声从何而来》', note:'完成枷笼山神祠两段步骤。'},
+      {id:'gate:accessory:crude-heart', label:'推进陆三千前置目标后在楼梯顶部与他交谈', note:'取得错过风险饰品“粗糙煌心”；前置包含“翠”目标 3 的无根露。', gate:true},
       {id:'gate:gate-whence', label:'跨桥进入戏梦山庄前完成神祠', note:'完成《哭声从何而来》的两处祭坛目标；跨桥后血色森林五处铃铛会关闭。不同指南对其它支线截止点有分歧，按此安全点处理。', gate:true},
       {id:'banyan:mountain', label:'完成枷笼山菩提试炼（5 / 5）', note:'完成第五处后解锁“草木也知愁”。'},
       {id:'route:r7:bi-feng', label:'击败横刀：毕峰', note:'与梅谷湖的火刀：祝原共同解锁“刀冠双绝”。'}
@@ -195,10 +209,35 @@
       if (!raw) return { version:checklistVersion, checks:{}, counts:{}, updatedAt:null };
       const parsed = JSON.parse(raw);
       if (!parsed || typeof parsed !== 'object') throw new Error('invalid');
-      return { version:checklistVersion, checks:parsed.checks && typeof parsed.checks === 'object' ? parsed.checks : {}, counts:parsed.counts && typeof parsed.counts === 'object' ? parsed.counts : {}, updatedAt:parsed.updatedAt || null };
+      return normalizeState(parsed);
     } catch (_) {
       return { version:checklistVersion, checks:{}, counts:{}, updatedAt:null };
     }
+  }
+
+  function normalizeState(source) {
+    const next = {
+      version:checklistVersion,
+      checks:source.checks && typeof source.checks === 'object' ? { ...source.checks } : {},
+      counts:source.counts && typeof source.counts === 'object' ? { ...source.counts } : {},
+      updatedAt:source.updatedAt || null,
+      legacyQuantityMigration:Boolean(source.legacyQuantityMigration)
+    };
+    if (Number(source.version || 1) < checklistVersion) {
+      const migrations = [
+        ['accessories30','accessory',quantityData.accessories],
+        ['weapon-temper10','weapon',quantityData.weapons],
+        ['edge-temper10','edge',quantityData.phantomEdges]
+      ];
+      migrations.forEach(([oldKey,newKey,items]) => {
+        const oldId = `global:${oldKey}`;
+        const oldCount = Math.min(items.length,Math.max(0,Math.floor(Number(next.counts[oldId] || 0))));
+        for (let i=0;i<oldCount;i++) next.checks[`quantity:${newKey}:${typeof items[i] === 'string' ? String(i+1).padStart(2,'0') : items[i].id}`] = true;
+        if (oldCount) next.legacyQuantityMigration = true;
+        delete next.counts[oldId];
+      });
+    }
+    return next;
   }
 
   function persist() {
@@ -228,7 +267,59 @@
       const value = Math.min(target,Math.max(0,Number(state.counts[id] || 0)));
       return `<label class="global-count"><span>${esc(label)}<small>成就门槛</small></span><span class="global-count-control"><input type="number" min="0" max="${target}" step="1" inputmode="numeric" data-count="${id}" data-target="${target}" value="${value}" aria-label="${label}进度"><em>/ ${target} ${unit}</em></span></label>`;
     }).join('');
-    document.getElementById('global-checklist').innerHTML = `<div class="global-checklist-head"><div><span class="section-kicker">需要累计的成就门槛</span><h3>全程累计数量</h3><p>只记成就明确要求的总量；区域其余物品无需清空。</p></div><span class="global-checklist-badge">8 项数量目标</span></div><div class="global-threshold-grid">${thresholds}</div>`;
+    document.getElementById('global-checklist').innerHTML = `<div class="global-checklist-head"><div><span class="section-kicker">需要累计的成就门槛</span><h3>全程累计数量</h3><p>这里保留其余 5 项数量目标；饰品与两类魂锻请在页面末尾逐项勾选。</p></div><span class="global-checklist-badge">5 项数量目标</span></div><div class="global-threshold-grid">${thresholds}</div>`;
+  }
+
+  function quantityId(group,index,item) {
+    const suffix = typeof item === 'string' ? String(index+1).padStart(2,'0') : item.id;
+    return `quantity:${group}:${suffix}`;
+  }
+
+  function regionLinks(regionIds) {
+    return regionIds.map(id => {
+      const region = regions.find(item => item.id === id);
+      return region ? `<a href="#${region.id}" data-region-link="${region.id}" class="quantity-region-link">${esc(region.name)}路线 ↗</a>` : '';
+    }).join('');
+  }
+
+  function renderAccessory(item) {
+    const checked = isChecked(`quantity:accessory:${item.id}`);
+    return `<article class="quantity-item ${checked ? 'is-checked' : ''} ${item.missable ? 'is-missable' : ''}">
+      <label class="quantity-item-toggle"><input type="checkbox" data-check="quantity:accessory:${esc(item.id)}" ${checked ? 'checked' : ''} aria-label="标记饰品已收集：${esc(item.name)}"><span></span></label>
+      <div class="quantity-item-copy"><div class="quantity-item-title">${esc(item.name)}${item.missable ? ' <em class="badge-inline">错过风险</em>' : ''}</div><p>${esc(item.where)}</p><div class="quantity-item-links">${regionLinks([item.region])}</div></div>
+    </article>`;
+  }
+
+  function renderGearOption(item,index,group) {
+    const id = quantityId(group.key,index,item);
+    const checked = isChecked(id);
+    const name = typeof item === 'string' ? item : item.name;
+    const details = typeof item === 'string' ? '' : item.where;
+    const regionIds = typeof item === 'string' ? [] : (Array.isArray(item.region) ? item.region : [item.region]);
+    return `<article class="quantity-item gear-item ${checked ? 'is-checked' : ''}"><label class="quantity-item-toggle"><input type="checkbox" data-check="${esc(id)}" ${checked ? 'checked' : ''} aria-label="已魂锻：${esc(name)}"><span></span></label><div class="quantity-item-copy"><div class="quantity-item-title">${esc(name)}</div>${details ? `<p>${esc(details)}</p>` : ''}${regionIds.length ? `<div class="quantity-item-links">${regionLinks(regionIds)}</div>` : ''}</div></article>`;
+  }
+
+  function renderQuantityChecklists() {
+    const accessories = quantityGroups[0];
+    const openAccessoryRegions = new Set([...document.querySelectorAll('.quantity-region-card[open]')].map(card => card.dataset.quantityRegion));
+    const accessoryCount = accessories.items.filter(item => isChecked(`quantity:accessory:${item.id}`)).length;
+    const legacyNote = state.legacyQuantityMigration ? `<div class="migration-note"><span>旧版只记录件数，暂时按顺序转换成了占位勾选。请依据实际物品名称核对：</span><button type="button" class="text-button" id="dismiss-migration-note">我已核对</button></div>` : '';
+    const regionMarkup = regions.slice(0,8).map((region,index) => {
+      const items = accessories.items.filter(item => item.region === region.id);
+      if (!items.length) return '';
+      const done = items.filter(item => isChecked(`quantity:accessory:${item.id}`)).length;
+      return `<details class="quantity-region-card" data-quantity-region="${region.id}" ${openAccessoryRegions.has(region.id) || (!openAccessoryRegions.size && index === 0) ? 'open' : ''}><summary><span>${esc(region.name)}</span><small>${items.length} 件可选</small><b>${done} / ${items.length}</b></summary><div class="quantity-items">${items.map(renderAccessory).join('')}</div></details>`;
+    }).join('');
+    const groupMarkup = quantityGroups.map((group,groupIndex) => {
+      const count = groupIndex === 0 ? accessoryCount : group.items.filter((item,index) => isChecked(quantityId(group.key,index,item))).length;
+      const titleId = `quantity-group-${group.key}`;
+      const options = groupIndex === 0 ? `<div class="quantity-region-grid">${regionMarkup}</div>` : `<div class="gear-options-grid">${group.items.map((item,index) => renderGearOption(item,index,group)).join('')}</div>`;
+      const optionalText = groupIndex === 0 ? '66 件候选饰品' : `${group.items.length} 件可选装备`;
+      return `<section class="quantity-group-card ${groupIndex === 0 ? 'accessory-group-card' : ''}" aria-labelledby="${titleId}"><div class="quantity-group-head"><div><span class="section-kicker">${groupIndex === 0 ? '逐件收集 · 可跳转区域' : '任选不同装备 · 不重复计数'}</span><h3 id="${titleId}">${esc(group.title)}</h3><p>${esc(group.description)}</p></div><div class="quantity-progress-badge"><strong>${count}</strong><span>/ ${group.target} ${esc(group.unit)}</span></div></div><div class="quantity-target-line"><span>成就要求 ${group.target} ${esc(group.unit)}</span><span>${optionalText}</span></div>${groupIndex === 0 && state.legacyQuantityMigration ? legacyNote : ''}${options}</section>`;
+    }).join('');
+    document.getElementById('quantity-checklist-groups').innerHTML = groupMarkup;
+    const dismiss = document.getElementById('dismiss-migration-note');
+    if (dismiss) dismiss.addEventListener('click',() => { state.legacyQuantityMigration = false; persist(); renderQuantityChecklists(); });
   }
 
   function renderRouteSteps(region) {
@@ -305,8 +396,9 @@
     regions.forEach(region => region.steps.forEach(step => { if (step.count) countSteps.push(step.count); else knownIds.add(step.id); }));
     const finishedStepCounts = countSteps.filter(({key,target}) => Number(state.counts[key] || 0) >= target).length;
     const finishedCounts = globalThresholds.filter(([key,,target]) => Number(state.counts[`global:${key}`] || 0) >= target).length;
-    const routeDone = Array.from(knownIds).filter(id => isChecked(id)).length + finishedCounts + finishedStepCounts;
-    const routeTotal = knownIds.size + globalThresholds.length + countSteps.length;
+    const finishedQuantityTargets = quantityGroups.filter(group => group.items.filter((item,index) => isChecked(quantityId(group.key,index,item))).length >= group.target).length;
+    const routeDone = Array.from(knownIds).filter(id => isChecked(id)).length + finishedCounts + finishedStepCounts + finishedQuantityTargets;
+    const routeTotal = knownIds.size + globalThresholds.length + countSteps.length + quantityGroups.length;
     const routePercent = routeTotal ? Math.round(routeDone / routeTotal * 100) : 0;
     document.getElementById('route-fraction').textContent = `${routeDone} / ${routeTotal}`;
     document.getElementById('route-percent').textContent = `${routePercent}%`;
@@ -318,6 +410,8 @@
       if (row) row.classList.toggle('is-checked',checked);
       const achievementRow = input.closest('.achievement-row');
       if (achievementRow) achievementRow.classList.toggle('is-checked',checked);
+      const quantityItem = input.closest('.quantity-item');
+      if (quantityItem) quantityItem.classList.toggle('is-checked',checked);
     });
     regions.forEach(region => {
       const card = document.getElementById(region.id);
@@ -337,10 +431,10 @@
   }
   function refreshAfterCheck() {
     persist();
-    renderAchievements(); renderGlobalChecklist(); renderRegions(document.getElementById('region-search').value); renderFilters(); updateProgress();
+    renderAchievements(); renderGlobalChecklist(); renderRegions(document.getElementById('region-search').value); renderFilters(); renderQuantityChecklists(); updateProgress();
   }
   function exportProgress() {
-    const payload = { app:'影之刃零一周目全成就路线簿', version:checklistVersion, exportedAt:new Date().toISOString(), checks:state.checks, counts:state.counts };
+    const payload = { app:'影之刃零一周目全成就路线簿', version:checklistVersion, exportedAt:new Date().toISOString(), checks:state.checks, counts:state.counts, legacyQuantityMigration:state.legacyQuantityMigration };
     const blob = new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a'); link.href = url;
@@ -355,10 +449,12 @@
         const payload = JSON.parse(String(reader.result));
         const imported = payload?.checks && payload?.counts ? payload : payload?.state;
         if (!imported || typeof imported.checks !== 'object' || typeof imported.counts !== 'object') throw new Error('格式不符');
-        state.checks = { ...state.checks, ...imported.checks };
+        const normalized = normalizeState(imported);
+        Object.entries(normalized.checks).forEach(([id,value]) => { state.checks[id] = Boolean(state.checks[id] || value); });
         state.counts = { ...state.counts };
-        Object.entries(imported.counts).forEach(([key,value]) => { const n = Number(value); if (Number.isFinite(n)) state.counts[key] = Math.max(Number(state.counts[key] || 0),n); });
-        persist(); renderAchievements(); renderGlobalChecklist(); renderRegions(document.getElementById('region-search').value); renderFilters(); updateProgress();
+        Object.entries(normalized.counts).forEach(([key,value]) => { const n = Number(value); if (Number.isFinite(n)) state.counts[key] = Math.max(Number(state.counts[key] || 0),n); });
+        state.legacyQuantityMigration = state.legacyQuantityMigration || normalized.legacyQuantityMigration;
+        persist(); renderAchievements(); renderGlobalChecklist(); renderRegions(document.getElementById('region-search').value); renderFilters(); renderQuantityChecklists(); updateProgress();
         showToast('进度已合并：勾选项合并，计数取较大值。');
       } catch (_) { showToast('无法读取此文件。请选择本网站导出的 JSON 备份。'); }
     };
@@ -366,12 +462,23 @@
   }
   function resetProgress() {
     if (!window.confirm('确定清空此浏览器保存的所有勾选与计数吗？建议先导出备份。')) return;
-    state = { version:checklistVersion, checks:{}, counts:{}, updatedAt:null };
-    persist(); renderAchievements(); renderGlobalChecklist(); renderRegions(document.getElementById('region-search').value); renderFilters(); updateProgress();
+    state = { version:checklistVersion, checks:{}, counts:{}, updatedAt:null, legacyQuantityMigration:false };
+    persist(); renderAchievements(); renderGlobalChecklist(); renderRegions(document.getElementById('region-search').value); renderFilters(); renderQuantityChecklists(); updateProgress();
     showToast('本机进度已清空。');
   }
 
-  renderGlobalChecklist(); renderRegions(); renderFilters(); renderAchievements(); updateProgress();
+  function openRegionFromHash() {
+    const id = location.hash.slice(1);
+    if (!regions.some(region => region.id === id)) return;
+    const search = document.getElementById('region-search');
+    if (search.value && !document.getElementById(id)) { search.value = ''; renderRegions(); }
+    const card = document.getElementById(id);
+    if (card) card.open = true;
+  }
+
+  renderGlobalChecklist(); renderRegions(); renderFilters(); renderAchievements(); renderQuantityChecklists(); updateProgress();
+  window.addEventListener('hashchange',openRegionFromHash);
+  openRegionFromHash();
   document.addEventListener('change',event => {
     const input = event.target;
     if (input.matches('[data-check]')) { state.checks[input.dataset.check] = input.checked; refreshAfterCheck(); }
@@ -381,6 +488,16 @@
       input.value = String(value); state.counts[id] = value; persist(); renderGlobalChecklist(); updateProgress();
       showToast(`${input.getAttribute('aria-label')}：${value} / ${target}`);
     }
+  });
+  document.addEventListener('click',event => {
+    const link = event.target.closest('[data-region-link]');
+    if (!link) return;
+    const id = link.dataset.regionLink;
+    const search = document.getElementById('region-search');
+    if (search.value && !document.getElementById(id)) { search.value = ''; renderRegions(); }
+    const card = document.getElementById(id);
+    if (card) card.open = true;
+    setTimeout(() => card?.scrollIntoView({behavior:'smooth',block:'start'}),30);
   });
   document.getElementById('region-search').addEventListener('input',event => renderRegions(event.target.value));
   document.getElementById('achievement-search').addEventListener('input',renderAchievements);
