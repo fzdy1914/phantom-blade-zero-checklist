@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#11100f" />
+    <meta name="description" content="影之刃零一周目全成就路线与可保存检查进度：错过节点、区域成就、支线和收集品。" />
+    <title>影之刃零 · 一周目全成就路线</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <span class="brand-mark">零</span>
+        <span><b>影之刃零</b><small>一周目全成就路线簿</small></span>
+      </a>
+      <div class="topbar-actions">
+        <span class="save-indicator"><i></i><span id="save-status">本机自动保存</span></span>
+        <button class="button button-quiet" id="export-button" type="button"><span class="button-icon">↓</span> 导出进度</button>
+        <button class="button button-quiet" id="import-button" type="button"><span class="button-icon">↑</span> 导入进度</button>
+        <input id="import-file" type="file" accept="application/json,.json" hidden />
+      </div>
+    </header>
+
+    <main id="top" class="page-shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> 一周目 · 全成就规划 <span class="eyebrow-tag">Steam · 66 项</span></div>
+          <h1 id="hero-title">把每一道<span>关口</span><br />都走在错过之前。</h1>
+          <p class="hero-lede">按 9 个区域推进剧情，先清会关闭的支线，再跨区域。成就、关键物品和收集进度都可以在这里逐项勾选。</p>
+          <div class="hero-meta"><span><b>09</b> 个区域</span><span class="meta-separator">/</span><span><b>66</b> 个 Steam 成就</span><span class="meta-separator">/</span><span><b>一周目</b> 可达成</span></div>
+        </div>
+        <div class="hero-seal" aria-hidden="true">
+          <div class="seal-ring seal-ring-outer"></div><div class="seal-ring seal-ring-inner"></div>
+          <span class="seal-character">刃</span><span class="seal-caption">一念生 · 一念灭</span>
+          <span class="seal-mark seal-mark-top">路线 · 001</span><span class="seal-mark seal-mark-bottom">江湖行程</span>
+        </div>
+      </section>
+
+      <section class="dashboard" aria-label="进度总览">
+        <div class="dashboard-head"><div><span class="section-kicker">进度总览</span><h2>当前进度</h2></div><button class="text-button" id="reset-button" type="button">清空本机进度 <span>↗</span></button></div>
+        <div class="progress-grid">
+          <article class="progress-card achievement-progress">
+            <div class="progress-card-top"><span class="progress-icon">✳</span><span class="progress-label">Steam 成就</span><span id="achievement-fraction" class="progress-fraction">0 / 66</span></div>
+            <div class="progress-track"><span id="achievement-bar"></span></div>
+            <div class="progress-foot"><span>完整达成</span><span id="achievement-percent">0%</span></div>
+          </article>
+          <article class="progress-card route-progress">
+            <div class="progress-card-top"><span class="progress-icon">☷</span><span class="progress-label">路线检查</span><span id="route-fraction" class="progress-fraction">0 / 0</span></div>
+            <div class="progress-track"><span id="route-bar"></span></div>
+            <div class="progress-foot"><span>节点、支线与区域清扫</span><span id="route-percent">0%</span></div>
+          </article>
+          <article class="next-card"><div class="next-card-label"><span class="live-dot"></span> 一周目保险规则</div><p>每次准备打区域头目时，先回任务日志看有没有<span>红色失败条目</span>。</p><a href="#missables">查看全部错过节点 <span>↘</span></a></article>
+        </div>
+        <div class="save-note"><span class="note-symbol">!</span><span>进度仅保存在当前浏览器。换设备或清理浏览器前，先导出 JSON 备份。</span><span class="note-date">资料核对至 2026.11.10</span></div>
+      </section>
+
+      <nav class="section-nav" aria-label="页面目录">
+        <a class="nav-link is-active" href="#missables"><span class="nav-number">01</span>错过节点</a>
+        <a class="nav-link" href="#route"><span class="nav-number">02</span>区域路线</a>
+        <a class="nav-link" href="#achievements"><span class="nav-number">03</span>成就清单</a>
+        <a class="nav-link" href="#sources"><span class="nav-number">04</span>资料与说明</a>
+      </nav>
+
+      <section id="missables" class="content-section missable-section">
+        <div class="section-heading">
+          <div><span class="section-kicker">错过警戒 · 先检查再推主线</span><h2>先看会错过的节点</h2><p>大多数区域通关后可回访；失败的支线不能靠自由探索补回。按下列顺序做，再推进主线。</p></div>
+          <div class="heading-side"><span class="danger-pip"></span><b>4 道主要门槛</b><small>逐条完成后再前进</small></div>
+        </div>
+        <div id="gate-overview" class="gate-overview"></div>
+        <div class="risk-list" id="gate-list"></div>
+        <div class="section-tail-note"><span class="note-symbol">↳</span><span>资料来源对个别支线的精确截止点有分歧。这里按更早的安全截止点安排；存在冲突的条目会明确标注。</span></div>
+      </section>
+
+      <section id="route" class="content-section route-section">
+        <div class="section-heading">
+          <div><span class="section-kicker">分区域路线</span><h2>九个区域，一路清到底</h2><p>每一区都列出应拿成就、支线和收集计数。点开卡片逐项核对；未取得的普通收集品通常可在通关后回收。</p></div>
+          <div class="region-legend"><span><i class="legend-dot dot-red"></i>时限节点</span><span><i class="legend-dot dot-gold"></i>建议本区拿</span><span><i class="legend-dot dot-grey"></i>可通关后补</span></div>
+        </div>
+        <div class="region-filter-row">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="region-search" type="search" placeholder="查找区域、支线或收集品" /></label>
+          <button id="toggle-regions" class="button button-outline" type="button">全部展开</button>
+        </div>
+        <div id="global-checklist" class="global-checklist"></div>
+        <div id="region-list" class="region-list"></div>
+      </section>
+
+      <section id="achievements" class="content-section achievement-section">
+        <div class="section-heading">
+          <div><span class="section-kicker">成就清单 · 按游戏内中文名</span><h2>全成就核对表</h2><p>66 项按剧情、头目、支线、收集养成和招式分组。建议招式类成就拿到对应武器后马上做。</p></div>
+          <div class="achievement-total"><strong>66</strong><span>项成就</span></div>
+        </div>
+        <div class="achievement-tools">
+          <label class="search-box achievement-search"><span aria-hidden="true">⌕</span><input id="achievement-search" type="search" placeholder="搜索成就或解锁条件" /></label>
+          <div class="filter-chips" id="achievement-filters" role="group" aria-label="成就筛选"></div>
+        </div>
+        <div class="achievement-summary"><span id="visible-achievements">显示 66 项</span><span><i class="legend-dot dot-red"></i> 红色标记为一周目风险项</span></div>
+        <div id="achievement-list" class="achievement-list"></div>
+      </section>
+
+      <section id="sources" class="content-section sources-section">
+        <div class="section-heading">
+          <div><span class="section-kicker">参考资料与整理说明</span><h2>资料与口径</h2><p>路线按发售版公开攻略交叉整理，不是游戏内官方路线。区域日志、当前版本和你实际看到的任务状态优先。</p></div>
+        </div>
+        <div class="source-grid">
+          <a class="source-card" href="https://www.powerpyx.com/phantom-blade-zero-trophy-guide-roadmap/" target="_blank" rel="noreferrer"><span class="source-type">成就路线</span><b>PowerPyx · 成就与奖杯路线</b><span>成就路线、头目与任务奖励的主参考。</span><i>↗</i></a>
+          <a class="source-card" href="https://www.powerpyx.com/phantom-blade-zero-collectibles-guide-100-completion/" target="_blank" rel="noreferrer"><span class="source-type">收集品地图</span><b>PowerPyx · 全收集指南</b><span>9 个区域的逐点地图与可回访收集品。</span><i>↗</i></a>
+          <a class="source-card" href="https://phantomblade.guide/guides/missable-quests/" target="_blank" rel="noreferrer"><span class="source-type">错过项交叉核对</span><b>Phantom Blade Guide · 错过任务</b><span>按剧情顺序列出错过项，同时标明攻略之间的争议。</span><i>↗</i></a>
+          <a class="source-card" href="https://pbzdex.wiki/zh/trophies/list/" target="_blank" rel="noreferrer"><span class="source-type">中文成就名</span><b>PBZ Trophy Wiki · 全部成就</b><span>66 项 Steam 成就的中文名称、解锁条件与分类。</span><i>↗</i></a>
+        </div>
+        <div class="source-caveat"><b>区域口径：</b>游戏没有传统的明文章节，本页按主线推进的 9 个区域整理；戏梦山庄在地图进度中归入庞镇，但单独列作一段。<b>成就平台：</b>这里按 Steam 66 项成就整理；PS5 列表为 36 个奖杯，覆盖范围不同。<b>收集品口径：</b>逐区数量以 PowerPyx 区域清单为准，少数区域计数和任务总数在不同指南中不一致；本页显示区域核对数，不把未确定的总量当成硬性条件。<b>真正 100% 收藏：</b>不是白金/全成就的必要条件。</div>
+      </section>
+
+      <footer class="page-footer"><span>影之刃零 · 一周目路线检查簿</span><span>你的进度留在你的浏览器里 <span class="footer-mark">✳</span></span></footer>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
