@@ -476,9 +476,15 @@
     if (card) card.open = true;
   }
 
+  function updateActiveNav() {
+    let id = location.hash.slice(1) || 'route';
+    if (regions.some(region => region.id === id)) id = 'route';
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.toggle('is-active',link.getAttribute('href') === `#${id}`));
+  }
+
   renderGlobalChecklist(); renderRegions(); renderFilters(); renderAchievements(); renderQuantityChecklists(); updateProgress();
-  window.addEventListener('hashchange',openRegionFromHash);
-  openRegionFromHash();
+  window.addEventListener('hashchange',() => { openRegionFromHash(); updateActiveNav(); });
+  openRegionFromHash(); updateActiveNav();
   document.addEventListener('change',event => {
     const input = event.target;
     if (input.matches('[data-check]')) { state.checks[input.dataset.check] = input.checked; refreshAfterCheck(); }
@@ -515,5 +521,5 @@
   document.getElementById('import-button').addEventListener('click',() => document.getElementById('import-file').click());
   document.getElementById('import-file').addEventListener('change',event => { const file = event.target.files?.[0]; if (file) importProgress(file); event.target.value = ''; });
   document.getElementById('reset-button').addEventListener('click',resetProgress);
-  document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click',() => document.querySelectorAll('.nav-link').forEach(item => item.classList.toggle('is-active',item === link))));
+  document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click',updateActiveNav));
 })();
