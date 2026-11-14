@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#11100f" />
     <meta name="description" content="影之刃零一周目全成就路线检查表：按区域列出必做步骤、错过截止点与成就数量目标。" />
     <title>影之刃零 · 一周目全成就路线</title>
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=5" />
     <script src="quantity-data.js?v=3" defer></script>
-    <script src="app.js?v=4" defer></script>
+    <script src="app.js?v=5" defer></script>
   </head>
   <body>
     <div class="ambient ambient-one" aria-hidden="true"></div>
@@ -80,19 +80,14 @@
 
       <section id="achievements" class="content-section achievement-section">
         <div class="section-heading">
-          <div><span class="section-kicker">成就清单 · 按是否绑定区域</span><h2>全成就核对表</h2><p>先按区域归属查看；区域绑定的成就再分流程推进与主动完成。可搜索，也可隐藏已完成项。</p></div>
+          <div><span class="section-kicker">成就清单 · 不绑定区域</span><h2>成就核对表</h2><p>区域绑定的成就已按流程推进与主动完成列在前文区域路线中；这里不重复列出。可搜索，也可隐藏已完成项。</p></div>
           <div class="achievement-total"><strong>66</strong><span>项成就</span></div>
         </div>
         <div class="achievement-tools">
-          <label class="search-box achievement-search"><span aria-hidden="true">⌕</span><input id="achievement-search" type="search" placeholder="搜索成就或解锁条件" /></label>
+          <label class="search-box achievement-search"><span aria-hidden="true">⌕</span><input id="achievement-search" type="search" placeholder="搜索不绑定区域成就" /></label>
           <div class="filter-chips" id="achievement-filters" role="group" aria-label="成就筛选"></div>
         </div>
-        <div class="achievement-summary"><span id="visible-achievements">区域绑定 41 项 · 不绑定区域 25 项</span><span><i class="legend-dot dot-red"></i> 红色标签表示流程截止点</span></div>
-        <div class="achievement-group">
-          <div class="achievement-group-heading"><div><span class="section-kicker">限定在剧情、头目或支线所在区域</span><h3>区域绑定成就</h3></div><span>41 项</span></div>
-          <div class="achievement-subgroup"><div class="achievement-subgroup-heading"><b>流程推进</b><span>13 项</span></div><div id="bound-flow-achievement-list" class="achievement-list"></div></div>
-          <div class="achievement-subgroup"><div class="achievement-subgroup-heading"><b>非流程必得 · 头目与支线</b><span>28 项</span></div><div id="bound-active-achievement-list" class="achievement-list"></div></div>
-        </div>
+        <div class="achievement-summary"><span id="visible-achievements">不绑定区域 25 项</span><a class="achievement-route-link" href="#route">区域绑定成就 41 项已列于前文 · 查看区域路线 ↗</a></div>
         <div class="achievement-group active-achievement-group">
           <div class="achievement-group-heading"><div><span class="section-kicker">任意区域均可完成；指定装备另标获取地点</span><h3>不绑定区域的成就</h3></div><span>25 项</span></div>
           <div id="unbound-achievement-list" class="achievement-list"></div>

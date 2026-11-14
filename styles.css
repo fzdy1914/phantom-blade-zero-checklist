@@ -77,6 +77,8 @@ body{font-size:16px;line-height:1.7;color:#f4f0e9}
 .filter-chips{gap:7px}
 .filter-chip{font-size:13px;padding:8px 12px;border-radius:5px;color:#c8beb2}
 .achievement-summary{font:13px var(--sans);color:#beb5a8;padding:0 0 12px;margin-bottom:15px}
+.achievement-route-link{font-size:13px;color:#e1b87f;text-decoration:underline;text-decoration-color:#71583d;text-underline-offset:3px}
+.achievement-route-link:hover{color:#fff0cf;text-decoration-color:#d7a869}
 .achievement-group{padding:18px;margin:0 0 18px;border:1px solid #3a332c;border-radius:8px;background:#171615}
 .active-achievement-group{border-color:#463c32}
 .achievement-group-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid #39322b}

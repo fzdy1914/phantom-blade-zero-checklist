@@ -382,16 +382,11 @@
       const textMatch = !query || `${a.title} ${a.en} ${a.desc} ${a.area}`.toLocaleLowerCase().includes(query);
       return textMatch && (!showIncompleteOnly || !isChecked(A(a.n)));
     };
-    const boundFlow = achievements.filter(a => isRegionBound(a) && a.cat === 'story' && matches(a));
-    const boundActive = achievements.filter(a => isRegionBound(a) && a.cat !== 'story' && matches(a));
     const unbound = achievements.filter(a => !isRegionBound(a) && matches(a));
-    const renderList = (id, list, emptyText) => {
-      document.getElementById(id).innerHTML = list.length ? list.map(achievementRow).join('') : `<div class="no-results">${emptyText}</div>`;
-    };
-    renderList('bound-flow-achievement-list',boundFlow,'没有找到匹配的流程成就。');
-    renderList('bound-active-achievement-list',boundActive,'没有找到匹配的区域绑定主动成就。');
-    renderList('unbound-achievement-list',unbound,'没有找到匹配的不绑定区域成就。');
-    document.getElementById('visible-achievements').textContent = `区域绑定 ${boundFlow.length + boundActive.length} / 41 项 · 不绑定区域 ${unbound.length} / 25 项`;
+    document.getElementById('unbound-achievement-list').innerHTML = unbound.length
+      ? unbound.map(achievementRow).join('')
+      : '<div class="no-results">没有找到匹配的不绑定区域成就。</div>';
+    document.getElementById('visible-achievements').textContent = `不绑定区域成就 ${unbound.length} / 25 项`;
   }
 
   function updateProgress() {
